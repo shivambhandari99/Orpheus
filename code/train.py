@@ -38,7 +38,7 @@ def train(args):
     # [TODO: define your model, optimizer, loss function]
     args.h_channels = 64
     args.in_channels = 1
-    model = ConvLSTM.Seq2Seq(args)
+    model = ConvLSTM.Seq2Seq(args).cuda
     optimizer = torch.optim.SGD(model.parameters(), weight_decay=1e-3, lr = 0.001, momentum=0.9)
     criterion = nn.MSELoss()
     writer = SummaryWriter()  # initialize tensorboard writer
