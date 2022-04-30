@@ -74,7 +74,7 @@ class ConvLSTM(nn.Module):
         image_size = (x.size(dim=2),x.size(dim=3),x.size(dim=1))
         batch_size = (x.size(dim=0))
         #my_result = all(elem is None for elem in states)
-        if states==(None, None):
+        if states is (None, None):
             hidden_states, cell_states = self.init_hidden(batch_size, image_size)
         else:
             hidden_states, cell_states = states
