@@ -71,10 +71,6 @@ class ConvLSTM(nn.Module):
 
     def forward(self, x, states=None):
         self.count+=1
-        print(self.count)
-        print(type(states))
-        print(states[0],states[1])
-        print(x.shape)
         image_size = (x.size(dim=2),x.size(dim=3),x.size(dim=1))
         batch_size = x.size(dim=0)
         #my_result = all(elem is None for elem in states)
@@ -91,9 +87,6 @@ class ConvLSTM(nn.Module):
             hidden_states, cell_states = states
         for i, layer in enumerate(self.layer_list):
             if(i==0):
-                print(x.shape)
-                print(hidden_states[i].shape)
-                print(cell_states[i].shape)
                 h_cur, c_cur = layer(x,(hidden_states[i], cell_states[i]))
                 hidden_states[i] = h_cur
                 cell_states[i] = c_cur
@@ -215,7 +208,6 @@ class Seq2Seq(nn.Module):
         # encoder
         for t in range(self.seq_len - 1):
             x = self.frame_encoder(in_seq[t])
-            print(x.shape)
             hidden_states, states = self.model(x,(hidden_states, states))
 
         # [TODO: call ConvLSTM]
