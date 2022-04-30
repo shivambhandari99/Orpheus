@@ -74,6 +74,7 @@ class ConvLSTM(nn.Module):
         print(self.count)
         print(type(states))
         print(states[0],states[1])
+        print(x.shape)
         image_size = (x.size(dim=2),x.size(dim=3),x.size(dim=1))
         batch_size = x.size(dim=0)
         #my_result = all(elem is None for elem in states)
