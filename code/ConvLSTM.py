@@ -36,7 +36,6 @@ class ConvLSTMCell(nn.Module):
     def init_hidden(self, batch_size, image_size):
         """ initialize the first hidden state as zeros """
         height, width, dimensions = image_size
-        print(height,width,dimensions)
         return (torch.zeros(batch_size, self.h_channels, height, width, dimensions,device=self.device),
                 torch.zeros(batch_size, self.h_channels, height, width, dimensions,device=self.device))
 
@@ -72,17 +71,13 @@ class ConvLSTM(nn.Module):
     def forward(self, x, states=None):
         self.count+=1
         print(self.count)
-        print(states)
         image_size = (x.size(dim=2),x.size(dim=3),x.size(dim=1))
         batch_size = (x.size(dim=0))
         my_result = all(elem is None for elem in states)
         if not my_result:
-            print(len(self.init_hidden(batch_size, image_size)[1]))
             hidden_states, cell_states = self.init_hidden(batch_size, image_size)
         else:
             hidden_states, cell_states = states
-        print(hidden_states)
-        print(cell_states)
         for i, layer in enumerate(self.layer_list):
             if(i==0):
                 h_cur, c_cur = layer(x,(hidden_states[i], cell_states[i]))
@@ -205,9 +200,7 @@ class Seq2Seq(nn.Module):
         hidden_states, states = None, None
         # encoder
         for t in range(self.seq_len - 1):
-            print(in_seq[t].shape)
             x = self.frame_encoder(in_seq[t])
-            print(x.shape)
             hidden_states, states = self.model(x,(hidden_states, states))
 
         # [TODO: call ConvLSTM]
