@@ -55,7 +55,7 @@ class ConvLSTM(nn.Module):
 
         self.in_channels = in_channels
         self.num_layer = num_layers
-
+        self.count = 0
         #self.hidden_state_list = []
         #self.cell_state_list = []
 
@@ -70,6 +70,8 @@ class ConvLSTM(nn.Module):
         self.layer_list = nn.ModuleList(layer_list)
 
     def forward(self, x, states=None):
+        self.count+=1
+        print(self.count)
         print(states)
         image_size = (x.size(dim=2),x.size(dim=3),x.size(dim=1))
         batch_size = (x.size(dim=0))
