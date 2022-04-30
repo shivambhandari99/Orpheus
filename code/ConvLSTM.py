@@ -40,6 +40,7 @@ class ConvLSTMCell(nn.Module):
         y = torch.zeros(batch_size, self.h_channels, height, width, dimensions)
         print(x.shape)
         print(y.shape)
+        print(len(x,y))
         return (x,y)
         return (torch.zeros(batch_size, self.h_channels, height, width, dimensions,device=self.device),
                 torch.zeros(batch_size, self.h_channels, height, width, dimensions,device=self.device))
