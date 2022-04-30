@@ -196,10 +196,10 @@ class Seq2Seq(nn.Module):
 
         next_frames = []
         hidden_states, states = None, None
-
         # encoder
         for t in range(self.seq_len - 1):
             x = self.frame_encoder(in_seq[t])
+            print(x.shape)
             hidden_states, states = self.model(x,(hidden_states, states))
 
         # [TODO: call ConvLSTM]
