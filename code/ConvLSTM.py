@@ -90,6 +90,9 @@ class ConvLSTM(nn.Module):
             hidden_states, cell_states = states
         for i, layer in enumerate(self.layer_list):
             if(i==0):
+                print(x.shape)
+                print(hidden_states[i].shape)
+                print(cell_states[i].shape)
                 h_cur, c_cur = layer(x,(hidden_states[i], cell_states[i]))
                 hidden_states[i] = h_cur
                 cell_states[i] = c_cur
