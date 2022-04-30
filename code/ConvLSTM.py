@@ -70,7 +70,7 @@ class ConvLSTM(nn.Module):
 
     def forward(self, x, states=None):
         print(states)
-        if states is None:
+        if states is (None,None):
             hidden_states, cell_states = self.init_hidden()
         else:
             hidden_states, cell_states = states
