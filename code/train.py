@@ -53,8 +53,6 @@ def train(args):
         running_loss = 0.0         
 
         for i, (data,target) in enumerate(train_loader):
-            print(data.shape)
-            print(target.shape)
             inputs, labels = data.to(gpu), target.to(gpu)
             inputs = inputs.float()
             optimizer.zero_grad()
