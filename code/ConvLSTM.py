@@ -35,9 +35,9 @@ class ConvLSTMCell(nn.Module):
 
     def init_hidden(self, batch_size, image_size):
         """ initialize the first hidden state as zeros """
-        height, width = image_size
-        return (torch.zeros(batch_size, self.h_channels, height, width, device=self.device),
-                torch.zeros(batch_size, self.h_channels, height, width, device=self.device))
+        height, width, dimensions = image_size
+        return (torch.zeros(batch_size, self.h_channels, height, width, dimensions,device=self.device),
+                torch.zeros(batch_size, self.h_channels, height, width, dimensions,device=self.device))
 
 
 class ConvLSTM(nn.Module):
@@ -70,8 +70,10 @@ class ConvLSTM(nn.Module):
 
     def forward(self, x, states=None):
         print(states)
+        image_size = (x.size(dim=2),x.size(dim=3),x.size(dim=1))
+        batch_size = (x.size(dim=0))
         if states[0] is None:
-            hidden_states, cell_states = self.init_hidden()
+            hidden_states, cell_states = self.init_hidden(batch_size, image_size)
         else:
             hidden_states, cell_states = states
         print(hidden_states)
