@@ -56,7 +56,7 @@ def train(args):
             inputs, labels = data.to(gpu), target.to(gpu)
             inputs = inputs.float()
             optimizer.zero_grad()
-            outputs = model(inputs)
+            outputs = model(inputs,labels)
             loss = criterion(outputs, labels)
             running_loss += loss.item()
             loss.backward()
