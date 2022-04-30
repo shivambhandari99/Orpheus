@@ -36,8 +36,11 @@ class ConvLSTMCell(nn.Module):
     def init_hidden(self, batch_size, image_size):
         """ initialize the first hidden state as zeros """
         height, width, dimensions = image_size
-        return (torch.zeros(batch_size, self.h_channels, height, width, dimensions),
-                torch.zeros(batch_size, self.h_channels, height, width, dimensions))
+        x = torch.zeros(batch_size, self.h_channels, height, width, dimensions)
+        y = torch.zeros(batch_size, self.h_channels, height, width, dimensions)
+        print(x.shape)
+        print(y.shape)
+        return (x,y)
         return (torch.zeros(batch_size, self.h_channels, height, width, dimensions,device=self.device),
                 torch.zeros(batch_size, self.h_channels, height, width, dimensions,device=self.device))
 
