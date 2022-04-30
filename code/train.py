@@ -53,7 +53,7 @@ def train(args):
         running_loss = 0.0         
 
         for i, (data,target) in enumerate(train_loader):
-            inputs, labels = data.to(device), target.to(device)
+            inputs, labels = data.to(gpu), target.to(gpu)
             inputs = inputs.float()
             optimizer.zero_grad()
             outputs = model(inputs)
