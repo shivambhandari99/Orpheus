@@ -179,6 +179,7 @@ class Seq2Seq(nn.Module):
         self.kernel_size = args.kernel_size
         self.seq_len = args.seq_len
         self.horizon = args.horizon
+        self.in_channels = args.in_channels
 
         self.frame_encoder = DCGAN64Encoder(self.in_channels, self.h_channels).to(self.gpu)
         self.frame_decoder = DCGAN64Decoder(self.h_channels, self.out_channels).to(self.gpu)
