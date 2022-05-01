@@ -220,10 +220,7 @@ class Seq2Seq(nn.Module):
         # decoder
 
         for t in range(self.horizon):
-            print(t)
             if teacher_forcing_rate is None:
-                print("okay")
-                print(type(hidden_states))
             # [TODO: use predicted frames as the input]
             else:
                 continue
@@ -231,11 +228,8 @@ class Seq2Seq(nn.Module):
             # [      based on teacher forcing rate]
 
             # [TODO: call ConvLSTM]
-            print(len(hidden_states))
             hidden_states, states = self.model(hidden_states[-1], (hidden_states, states))
-            print(hidden_states[-1].shape)
             out = self.frame_decoder(hidden_states[-1])
             next_frames.append(out)
-        print(next_frames)
         next_frames = torch.stack(next_frames, dim=1)
         return next_frames
