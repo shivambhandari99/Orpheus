@@ -27,6 +27,7 @@ class ConvLSTMCell(nn.Module):
         f = torch.sigmoid(cc_f)
         o = torch.sigmoid(cc_o)
         g = torch.tanh(cc_g)
+        print(c_prev)
         print(type(f))
         print(type(c_prev))
         print(type(i))
