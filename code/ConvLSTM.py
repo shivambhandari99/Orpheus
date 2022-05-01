@@ -151,8 +151,10 @@ class DCGAN64Encoder(nn.Module):
 
     def forward(self, x):
         out = x
+        print(out.shape)
         for layer in self.conv:
             out = layer(out)
+            print(out.shape)
         return out
 
 
