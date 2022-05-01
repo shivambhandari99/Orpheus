@@ -29,6 +29,7 @@ class ConvLSTMCell(nn.Module):
         g = torch.tanh(cc_g)
         #print(c_prev)
         print(len(c_prev))
+        print(type(c_prev[0]))
         #print(type(f))
         #print(type(c_prev))
         #print(type(i))
