@@ -79,7 +79,8 @@ class ConvLSTM(nn.Module):
             #hidden_states, cell_states = y
         else:
             hidden_states, cell_states = states
-
+        print(len(hidden_states))
+        print(len(cell_states))
         for i, layer in enumerate(self.layer_list):
             print(i)
             if(i==0):
