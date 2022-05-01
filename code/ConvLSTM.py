@@ -79,9 +79,6 @@ class ConvLSTM(nn.Module):
             #hidden_states, cell_states = y
         else:
             hidden_states, cell_states = states
-        print(len(states))
-        print(len(hidden_states))
-        print(len(cell_states[0]))
         for i, layer in enumerate(self.layer_list):
             print(i)
             if(i==0):
@@ -215,8 +212,9 @@ class Seq2Seq(nn.Module):
 
         # [TODO: call ConvLSTM]
         # decoder
-        for t in range(self.horizon):
 
+        for t in range(self.horizon):
+            print(t)
             if teacher_forcing_rate is None:
                 continue
             # [TODO: use predicted frames as the input]
