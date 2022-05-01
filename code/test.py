@@ -31,10 +31,22 @@ def test(args):
     frame_ssim = [0] * args.horizon
  
     ground_truth, prediction = [], []  # these are for visualization
+    model.load_state_dict(torch.load(model_name))
+    model.to(device)
+    data_loader = DataLoader(
+        train_dataset, 
+        batch_size=args.batch_size, 
+        shuffle=True)
 
     model.eval()    
     with torch.no_grad():
-        for it, data in enumerate(data_loader):
+        for it, (data,target) in enumerate(data_loader):
+            inputs, labels = data.to(gpu), target.to(gpu)
+            inputs = inputs.float()
+            outputs = model(inputs,labels,teacher_forcing_rate)
+            num_samples+=len(data)
+            frames = labels
+            out = outputs
             # [TODO: generate predicted frames]
 
             # num_samples += [batch size]
