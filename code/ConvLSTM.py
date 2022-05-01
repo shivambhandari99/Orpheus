@@ -217,6 +217,7 @@ class Seq2Seq(nn.Module):
         hidden_states, states = None, None
         # encoder
         for t in range(self.seq_len - 1):
+            print("Time:",str(t))
             x = self.frame_encoder(in_seq[t])
             hidden_states, states = self.model(x,(hidden_states, states))
 
