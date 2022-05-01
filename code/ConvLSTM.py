@@ -199,6 +199,8 @@ class Seq2Seq(nn.Module):
 
     def forward(self, in_seq, out_seq, teacher_forcing_rate=None):
         print(in_seq.shape)
+        in_seq = torch.swapaxes(in_seq, 0, 1)
+        print(in_seq.shape)
         next_frames = []
         hidden_states, states = None, None
         # encoder
