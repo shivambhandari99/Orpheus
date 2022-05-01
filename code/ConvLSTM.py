@@ -102,6 +102,8 @@ class ConvLSTM(nn.Module):
                 h_cur, c_cur = layer(hidden_states[i-1],(hidden_states[i], cell_states[i]))
                 hidden_states[i] = h_cur
                 cell_states[i] = c_cur
+            print(type(h_cur))
+            print(type(c_cur))
         # [TODO: layer forward] (Done, I reckon)
         return hidden_states, (hidden_states, cell_states)
 
