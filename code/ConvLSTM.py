@@ -221,6 +221,7 @@ class Seq2Seq(nn.Module):
 
         for t in range(self.horizon):
             if teacher_forcing_rate is None:
+                print("lol")
             # [TODO: use predicted frames as the input]
             else:
                 continue
