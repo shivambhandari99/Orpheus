@@ -52,12 +52,12 @@ def train(args):
     for epoch in range(args.num_epochs):
         model.train()
         running_loss = 0.0         
-
+        teacher_forcing_rate = (1 - epoch/args.num_epochs)
         for i, (data,target) in enumerate(train_loader):
-            teacher_forcing_rate = (1 - i/len(train_loader))
-            if((i+1)%50==0):
+            if((i+1)%10==0):
                 print(teacher_forcing_rate)
                 print(running_loss/i)
+                writer.add_scalar("Loss", running_loss/i, epoch*len(train_loader)+i)
             inputs, labels = data.to(gpu), target.to(gpu)
             inputs = inputs.float()
             optimizer.zero_grad()
@@ -66,7 +66,7 @@ def train(args):
             running_loss += loss.item()
             loss.backward()
             optimizer.step()
-            #writer.add_scalar()
+            
         print('Epoch: {} - Loss: {:.6f}'.format(epoch + 1, running_loss/len(train_loader)))
         running_loss = 0.0
         torch.save(model.state_dict(), os.path.join(args.result_path, 'ep_' + str(epoch) +'.pth'))
