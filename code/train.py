@@ -63,6 +63,7 @@ def train(args):
             inputs = inputs.float()
             optimizer.zero_grad()
             outputs = model(inputs,labels,teacher_forcing_rate)
+            writer.add_image("Output",outputs[0][0],global_step=epoch)
             loss = criterion(outputs, labels)
             running_loss += loss.item()
             loss.backward()

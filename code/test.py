@@ -7,6 +7,7 @@ from skimage.metrics import structural_similarity as compare_ssim
 
 
 def test(args):
+
     
     device = torch.device('cuda:{}'.format(args.gpu_id) if torch.cuda.is_available() else 'cpu')
   
@@ -16,7 +17,13 @@ def test(args):
         teacher_forcing_rate = None
         
     # [TODO: load testset and model]
-    
+    if args.data_source == 'moving_mnist':
+        from moving_mnist import MovingMNIST
+        train_dataset = MovingMNIST(root=args.data_path,
+                                    is_train=False, 
+                                    seq_len=args.seq_len, 
+                                    horizon=args.horizon)
+
     num_samples = 0
     avg_mse = 0
     avg_ssim = 0
