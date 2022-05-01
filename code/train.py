@@ -53,7 +53,7 @@ def train(args):
         running_loss = 0.0         
 
         for i, (data,target) in enumerate(train_loader):
-            if(i%50==0):
+            if((i+1)%50==0):
                 print(running_loss/i)
             inputs, labels = data.to(gpu), target.to(gpu)
             inputs = inputs.float()
