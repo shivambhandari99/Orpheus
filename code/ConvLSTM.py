@@ -80,7 +80,6 @@ class ConvLSTM(nn.Module):
         else:
             hidden_states, cell_states = states
         for i, layer in enumerate(self.layer_list):
-            print(i)
             if(i==0):
                 h_cur, c_cur = layer(x,(hidden_states[i], cell_states[i]))
                 hidden_states[i] = h_cur
@@ -130,7 +129,6 @@ def activation_factory(name):
 
 
 def make_conv_block(conv):
-    print(conv)
     out_channels = conv.out_channels
     modules = [conv]
     modules.append(nn.GroupNorm(16, out_channels))
@@ -151,10 +149,8 @@ class DCGAN64Encoder(nn.Module):
 
     def forward(self, x):
         out = x
-        print(out.shape)
         for layer in self.conv:
             out = layer(out)
-            print(out.shape)
         return out
 
 
@@ -172,13 +168,9 @@ class DCGAN64Decoder(nn.Module):
         self.last_activation = activation_factory(last_activation)
 
     def forward(self, x):
-        print(self.conv)
         out = x
-        print(out.shape)
         for i, layer in enumerate(self.conv):
-            print(i)
             out = layer(out)
-            print(out.shape)
         return self.last_activation(out)
 
 
@@ -214,15 +206,13 @@ class Seq2Seq(nn.Module):
             print("Time:",str(t))
             x = self.frame_encoder(in_seq[t])
             hidden_states, states = self.model(x,(hidden_states, states))
-            #print(type(hidden_states))
-            #print(type(states))
 
         # [TODO: call ConvLSTM]
         # decoder
 
         for t in range(self.horizon):
             if teacher_forcing_rate is None:
-                print("lol")
+                pass
             # [TODO: use predicted frames as the input]
             else:
                 continue
