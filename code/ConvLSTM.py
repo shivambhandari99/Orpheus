@@ -27,23 +27,8 @@ class ConvLSTMCell(nn.Module):
         f = torch.sigmoid(cc_f)
         o = torch.sigmoid(cc_o)
         g = torch.tanh(cc_g)
-        #print(c_prev)
-        print(len(c_prev))
-        print(type(c_prev[0]))
-        print(c_prev[0].shape)
-        #print(type(f))
-        #print(type(c_prev))
-        #print(type(i))
-        #print(type(g))
-        #print(f.dtype)
-        #print(c_prev.dtype)
-        #print(i.dtype)
-        #print(g.dtype)
         c_cur = f * c_prev + i * g
         h_cur = o * torch.tanh(c_cur)
-        #print("---")
-        #print(type(h_cur))
-        #print(type(c_cur))
         return h_cur, c_cur
 
     def init_hidden(self, batch_size, image_size):
@@ -69,8 +54,6 @@ class ConvLSTM(nn.Module):
         self.in_channels = in_channels
         self.num_layer = num_layers
         self.count = 0
-        #self.hidden_state_list = []
-        #self.cell_state_list = []
 
         layer_list = []
         for i in range(num_layers):
@@ -86,7 +69,7 @@ class ConvLSTM(nn.Module):
         self.count+=1
         image_size = (x.size(dim=2),x.size(dim=3),x.size(dim=1))
         batch_size = x.size(dim=0)
-        #my_result = all(elem is None for elem in states)
+        print(states)
         if states[0] is None and states[1] is None:
             hidden_states = []
             cell_states = []
@@ -97,9 +80,6 @@ class ConvLSTM(nn.Module):
             #hidden_states, cell_states = y
         else:
             hidden_states, cell_states = states
-        print(type(hidden_states))
-        print(type(cell_states))
-        print(len(cell_states))
 
         for i, layer in enumerate(self.layer_list):
             print(i)
