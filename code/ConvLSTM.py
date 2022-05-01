@@ -225,8 +225,8 @@ class Seq2Seq(nn.Module):
             # [      based on teacher forcing rate]
 
             # [TODO: call ConvLSTM]
+            print(len(hidden_states))
             hidden_states, states = self.model(hidden_states, (hidden_states, states))
-            print(hidden_states)
             out = self.frame_decoder(hidden_states)
             next_frames.append(out)
         print(next_frames)
