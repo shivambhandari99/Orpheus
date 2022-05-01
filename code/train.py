@@ -105,7 +105,7 @@ def main():
     args = parser.parse_args()
     
     train(args)
-    
+    #python train.py --data_source moving_mnist --model_name final --seq_len 10 --horizon 10 --num_epochs 300 --data_path ../data/ > output.log
 #python train.py --data_source moving_mnist --model_name final --seq_len 10 --horizon 10 --data_path ../data/    
 if __name__ == "__main__":
     main()
