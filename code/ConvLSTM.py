@@ -167,7 +167,7 @@ class DCGAN64Decoder(nn.Module):
         self.conv = nn.ModuleList([
             make_conv_block(nn.ConvTranspose2d(in_c, h_c, 3, 2, 1, output_padding=1)),
             make_conv_block(nn.ConvTranspose2d(h_c, h_c, 3, 1, 1)),
-            make_conv_block(nn.ConvTranspose2d(h_c, out_c, 3, 2, 1, output_padding=1))])
+            nn.ConvTranspose2d(h_c, out_c, 3, 2, 1, output_padding=1)])
 
         self.last_activation = activation_factory(last_activation)
 
