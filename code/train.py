@@ -53,7 +53,7 @@ def train(args):
         running_loss = 0.0         
 
         for i, (data,target) in enumerate(train_loader):
-            teacher_forcing_rate = (1 - i*batch_size/len(train_loader))
+            teacher_forcing_rate = (1 - i*args.batch_size/len(train_loader))
             if((i+1)%50==0):
                 print(teacher_forcing_rate)
                 print(running_loss/i)
