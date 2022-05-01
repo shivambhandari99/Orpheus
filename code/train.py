@@ -53,7 +53,8 @@ def train(args):
         running_loss = 0.0         
 
         for i, (data,target) in enumerate(train_loader):
-            print(i)
+            if(i%50==0):
+                print(running_loss/i)
             inputs, labels = data.to(gpu), target.to(gpu)
             inputs = inputs.float()
             optimizer.zero_grad()
@@ -63,7 +64,7 @@ def train(args):
             loss.backward()
             optimizer.step()
             #writer.add_scalar()
-        print('Epoch: {} - Loss: {:.6f}'.format(epoch + 1, running_loss/len(train_set)))
+        print('Epoch: {} - Loss: {:.6f}'.format(epoch + 1, running_loss/len(train_loader)))
         running_loss = 0.0
         torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_' + str(epoch) +'.pth'))
 
