@@ -217,7 +217,7 @@ class Seq2Seq(nn.Module):
                 next_frames.append(out)
             # [TODO: use predicted frames as the input]
             else:
-                use_teacher_forcing = True if random.random() < teacher_forcing_ratio else False
+                use_teacher_forcing = True if random.random() < teacher_forcing_rate else False
                 if(use_teacher_forcing):
                     next_frame = self.frame_encoder(out_seq[t])
                     hidden_states, states = self.model(next_frame, (hidden_states, states))
