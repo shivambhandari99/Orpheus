@@ -53,6 +53,7 @@ def train(args):
         running_loss = 0.0         
 
         for i, (data,target) in enumerate(train_loader):
+            print(i)
             inputs, labels = data.to(gpu), target.to(gpu)
             inputs = inputs.float()
             optimizer.zero_grad()
@@ -100,6 +101,6 @@ def main():
     
     train(args)
     
-    
+#python train.py --data_source moving_mnist --model_name final --seq_len 10 --horizon 10 --data_path ../data/    
 if __name__ == "__main__":
     main()
