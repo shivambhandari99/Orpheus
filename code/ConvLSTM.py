@@ -217,6 +217,7 @@ class Seq2Seq(nn.Module):
             print(t)
             if teacher_forcing_rate is None:
                 print("okay")
+                print(type(hidden_states))
             # [TODO: use predicted frames as the input]
             else:
                 continue
