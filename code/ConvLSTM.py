@@ -227,7 +227,7 @@ class Seq2Seq(nn.Module):
             # [TODO: call ConvLSTM]
             print(len(hidden_states))
             hidden_states, states = self.model(hidden_states[-1], (hidden_states, states))
-            out = self.frame_decoder(hidden_states)
+            out = self.frame_decoder(hidden_states[-1])
             next_frames.append(out)
         print(next_frames)
         next_frames = torch.stack(next_frames, dim=1)
