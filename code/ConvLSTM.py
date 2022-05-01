@@ -27,21 +27,21 @@ class ConvLSTMCell(nn.Module):
         f = torch.sigmoid(cc_f)
         o = torch.sigmoid(cc_o)
         g = torch.tanh(cc_g)
-        print(c_prev)
+        #print(c_prev)
         print(len(c_prev))
-        print(type(f))
-        print(type(c_prev))
-        print(type(i))
-        print(type(g))
-        print(f.dtype)
-        print(c_prev.dtype)
-        print(i.dtype)
-        print(g.dtype)
+        #print(type(f))
+        #print(type(c_prev))
+        #print(type(i))
+        #print(type(g))
+        #print(f.dtype)
+        #print(c_prev.dtype)
+        #print(i.dtype)
+        #print(g.dtype)
         c_cur = f * c_prev + i * g
         h_cur = o * torch.tanh(c_cur)
-        print("---")
-        print(type(h_cur))
-        print(type(c_cur))
+        #print("---")
+        #print(type(h_cur))
+        #print(type(c_cur))
         return h_cur, c_cur
 
     def init_hidden(self, batch_size, image_size):
@@ -106,8 +106,8 @@ class ConvLSTM(nn.Module):
                 h_cur, c_cur = layer(hidden_states[i-1],(hidden_states[i], cell_states[i]))
                 hidden_states[i] = h_cur
                 cell_states[i] = c_cur
-            print(type(hidden_states[i]))
-            print(type(cell_states[i]))
+            #print(type(hidden_states[i]))
+            #print(type(cell_states[i]))
         # [TODO: layer forward] (Done, I reckon)
         return hidden_states, (hidden_states, cell_states)
 
@@ -224,8 +224,8 @@ class Seq2Seq(nn.Module):
             print("Time:",str(t))
             x = self.frame_encoder(in_seq[t])
             hidden_states, states = self.model(x,(hidden_states, states))
-            print(type(hidden_states))
-            print(type(states))
+            #print(type(hidden_states))
+            #print(type(states))
 
         # [TODO: call ConvLSTM]
         # decoder
