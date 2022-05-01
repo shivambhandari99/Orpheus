@@ -40,7 +40,8 @@ def train(args):
     args.h_channels = 64
     args.in_channels = 1
     model = ConvLSTM.Seq2Seq(args).to('cuda')
-    optimizer = torch.optim.SGD(model.parameters(), weight_decay=1e-3, lr = 0.001, momentum=0.9)
+    #optimizer = torch.optim.SGD(model.parameters(), weight_decay=1e-3, lr = 0.001, momentum=0.9)
+    optimizer = torch.optim.Adam(model.parameters(), lr=1e-4, betas=(0.9, 0.98))
     criterion = nn.MSELoss()
     writer = SummaryWriter()  # initialize tensorboard writer
     
@@ -69,7 +70,7 @@ def train(args):
             
         print('Epoch: {} - Loss: {:.6f}'.format(epoch + 1, running_loss/len(train_loader)))
         running_loss = 0.0
-        torch.save(model.state_dict(), os.path.join(args.result_path, 'mnist' + str(epoch) +'.pth'))
+        torch.save(model.state_dict(), os.path.join(args.result_path, 'mnist_adam' + str(epoch) +'.pth'))
 
             # [TODO: train the model with a batch]
             
