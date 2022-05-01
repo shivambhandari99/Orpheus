@@ -199,6 +199,7 @@ class Seq2Seq(nn.Module):
 
     def forward(self, in_seq, out_seq, teacher_forcing_rate=None):
         in_seq = torch.swapaxes(in_seq, 0, 1)
+        out_seq = torch.swapaxes(out_seq, 0, 1)
         next_frames = []
         hidden_states, states = None, None
         # encoder
@@ -211,16 +212,25 @@ class Seq2Seq(nn.Module):
 
         for t in range(self.horizon):
             if teacher_forcing_rate is None:
-                pass
+                hidden_states, states = self.model(hidden_states[-1], (hidden_states, states))
+                out = self.frame_decoder(hidden_states[-1])
+                next_frames.append(out)
             # [TODO: use predicted frames as the input]
             else:
-                continue
+                use_teacher_forcing = True if random.random() < teacher_forcing_ratio else False
+                if(use_teacher_forcing):
+                    next_frame = self.frame_encoder(out_seq[t])
+                    hidden_states, states = self.model(next_frame, (hidden_states, states))
+                    out = self.frame_decoder(hidden_states[-1])
+                    next_frames.append(out)
+                else:
+                    hidden_states, states = self.model(hidden_states[-1], (hidden_states, states))
+                    out = self.frame_decoder(hidden_states[-1])
+                    next_frames.append(out)
+
             # [TODO: choose from predicted frames and out_seq as the input
             # [      based on teacher forcing rate]
 
             # [TODO: call ConvLSTM]
-            hidden_states, states = self.model(hidden_states[-1], (hidden_states, states))
-            out = self.frame_decoder(hidden_states[-1])
-            next_frames.append(out)
         next_frames = torch.stack(next_frames, dim=1)
         return next_frames

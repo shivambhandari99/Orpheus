@@ -53,12 +53,14 @@ def train(args):
         running_loss = 0.0         
 
         for i, (data,target) in enumerate(train_loader):
+            teacher_forcing_rate = (1 - i*batch_size/len(train_loader))
             if((i+1)%50==0):
+                print(teacher_forcing_rate)
                 print(running_loss/i)
             inputs, labels = data.to(gpu), target.to(gpu)
             inputs = inputs.float()
             optimizer.zero_grad()
-            outputs = model(inputs,labels)
+            outputs = model(inputs,labels,teacher_forcing_rate)
             loss = criterion(outputs, labels)
             running_loss += loss.item()
             loss.backward()
@@ -66,7 +68,7 @@ def train(args):
             #writer.add_scalar()
         print('Epoch: {} - Loss: {:.6f}'.format(epoch + 1, running_loss/len(train_loader)))
         running_loss = 0.0
-        torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_' + str(epoch) +'.pth'))
+        torch.save(model.state_dict(), os.path.join(args.result_path, 'ep_' + str(epoch) +'.pth'))
 
             # [TODO: train the model with a batch]
             
@@ -88,7 +90,7 @@ def main():
     parser.add_argument('--seq_len', type=int, required=True, help='input frame length')
     parser.add_argument('--horizon', type=int, required=True, help='output frame length')
     parser.add_argument('--use_teacher_forcing', action='store_true', help='if using teacher forcing, default is False')
-    parser.add_argument('--result_path', type=str, default='./results', help='path to the results, containing model and logs')
+    parser.add_argument('--result_path', type=str, default='../results', help='path to the results, containing model and logs')
 
     # training parameters
     parser.add_argument('--gpu_id', type=int, default=0)
