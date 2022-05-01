@@ -30,6 +30,7 @@ class ConvLSTMCell(nn.Module):
         #print(c_prev)
         print(len(c_prev))
         print(type(c_prev[0]))
+        print(c_prev[0].shape)
         #print(type(f))
         #print(type(c_prev))
         #print(type(i))
