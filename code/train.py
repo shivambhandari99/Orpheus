@@ -62,7 +62,7 @@ def train(args):
             running_loss += loss.item()
             loss.backward()
             optimizer.step()
-            writer.add_scalar()
+            #writer.add_scalar()
         print('Epoch: {} - Loss: {:.6f}'.format(epoch + 1, running_loss/len(train_set)))
         running_loss = 0.0
         torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_' + str(epoch) +'.pth'))
