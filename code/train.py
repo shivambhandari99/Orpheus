@@ -49,7 +49,7 @@ def train(args):
         teacher_forcing_rate = 1.0
     else:
         teacher_forcing_rate = None
-    
+    print(len(train_loader))
     for epoch in range(args.num_epochs):
         model.train()
         running_loss = 0.0         
