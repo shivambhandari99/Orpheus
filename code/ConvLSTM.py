@@ -198,16 +198,12 @@ class Seq2Seq(nn.Module):
                               device=self.gpu)
 
     def forward(self, in_seq, out_seq, teacher_forcing_rate=None):
-        print(in_seq.shape)
         in_seq = torch.swapaxes(in_seq, 0, 1)
-        print(in_seq.shape)
         next_frames = []
         hidden_states, states = None, None
         # encoder
         for t in range(self.seq_len):
-            print("Time:",str(t))
             x = self.frame_encoder(in_seq[t])
-            print(x.shape)
             hidden_states, states = self.model(x,(hidden_states, states))
 
         # [TODO: call ConvLSTM]
