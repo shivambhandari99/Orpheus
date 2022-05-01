@@ -95,7 +95,7 @@ class ConvLSTM(nn.Module):
             #print(type(hidden_states[i]))
             #print(type(cell_states[i]))
         # [TODO: layer forward] (Done, I reckon)
-        return hidden_states, (hidden_states, cell_states)
+        return hidden_states, cell_states
 
     def init_hidden(self, batch_size, image_size):
         init_states = []
