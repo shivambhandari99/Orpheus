@@ -37,7 +37,9 @@ class ConvLSTMCell(nn.Module):
         print(g.dtype)
         c_cur = f * c_prev + i * g
         h_cur = o * torch.tanh(c_cur)
-
+        print("---")
+        print(type(h_cur))
+        print(type(c_cur))
         return h_cur, c_cur
 
     def init_hidden(self, batch_size, image_size):
