@@ -172,6 +172,7 @@ class DCGAN64Decoder(nn.Module):
         self.last_activation = activation_factory(last_activation)
 
     def forward(self, x):
+        print(self.conv)
         out = x
         print(out.shape)
         for i, layer in enumerate(self.conv):
