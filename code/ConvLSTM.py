@@ -199,7 +199,9 @@ class Seq2Seq(nn.Module):
                               device=self.gpu)
 
     def forward(self, in_seq, out_seq, teacher_forcing_rate=None):
-
+        x = self.frame_encoder(in_seq[0])
+        y = self.frame_decoder(x)
+        exit(1)
         next_frames = []
         hidden_states, states = None, None
         # encoder
