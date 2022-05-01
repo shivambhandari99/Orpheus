@@ -130,6 +130,7 @@ def activation_factory(name):
 
 
 def make_conv_block(conv):
+    print(conv)
     out_channels = conv.out_channels
     modules = [conv]
     modules.append(nn.GroupNorm(16, out_channels))
