@@ -227,6 +227,7 @@ class Seq2Seq(nn.Module):
             # [TODO: call ConvLSTM]
             print(len(hidden_states))
             hidden_states, states = self.model(hidden_states[-1], (hidden_states, states))
+            print(hidden_states[-1].shape)
             out = self.frame_decoder(hidden_states[-1])
             next_frames.append(out)
         print(next_frames)
