@@ -59,11 +59,11 @@ def train(args):
             if((i+1)%10==0):
                 print(i,running_loss/i)
                 writer.add_scalar("Loss", running_loss/i, epoch*len(train_loader)+i)
+                writer.add_image("Output",outputs[0][0],global_step=epoch*len(train_loader)+i)
             inputs, labels = data.to(gpu), target.to(gpu)
             inputs = inputs.float()
             optimizer.zero_grad()
             outputs = model(inputs,labels,teacher_forcing_rate)
-            writer.add_image("Output",outputs[0][0],global_step=epoch)
             loss = criterion(outputs, labels)
             running_loss += loss.item()
             loss.backward()
