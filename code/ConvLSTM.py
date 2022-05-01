@@ -204,7 +204,8 @@ class Seq2Seq(nn.Module):
         # encoder
         for t in range(self.seq_len):
             print("Time:",str(t))
-            x = self.frame_encoder(in_seq[:t:::])
+            x = self.frame_encoder(in_seq[t])
+            print(x.shape)
             hidden_states, states = self.model(x,(hidden_states, states))
 
         # [TODO: call ConvLSTM]
