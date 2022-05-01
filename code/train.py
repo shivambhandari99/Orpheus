@@ -56,7 +56,7 @@ def train(args):
             teacher_forcing_rate = (1 - epoch/args.num_epochs)
         for i, (data,target) in enumerate(train_loader):
             if((i+1)%50==0):
-                print(running_loss/i)
+                print(i,running_loss/i)
                 writer.add_scalar("Loss", running_loss/i, epoch*len(train_loader)+i)
             inputs, labels = data.to(gpu), target.to(gpu)
             inputs = inputs.float()
