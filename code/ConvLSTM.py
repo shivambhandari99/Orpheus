@@ -94,12 +94,12 @@ class ConvLSTM(nn.Module):
             for i in range(len(y)):
                 hidden_states.append(y[i][0])
                 cell_states.append(y[i][1])
-
             #hidden_states, cell_states = y
-        print(type(hidden_states))
-        print(type(cell_states))
         else:
             hidden_states, cell_states = states
+        print(type(hidden_states))
+        print(type(cell_states))
+
         for i, layer in enumerate(self.layer_list):
             print(i)
             if(i==0):
