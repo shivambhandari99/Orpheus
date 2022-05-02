@@ -31,6 +31,7 @@ def test(args):
     frame_ssim = [0] * args.horizon
  
     ground_truth, prediction = [], []  # these are for visualization
+    model = ConvLSTM.Seq2Seq(args)
     model.load_state_dict(torch.load(model_name))
     model.to(device)
     data_loader = DataLoader(
@@ -113,6 +114,6 @@ def main():
     args = parser.parse_args()
     test(args)
     
-    
+#python test.py --model_name ../results/mnist_adam12.pth --data_path ../data/ --data_source moving_mnist --result_path ../results/ --seq_len 10 --horizon 10    
 if __name__ == "__main__":
     main()
