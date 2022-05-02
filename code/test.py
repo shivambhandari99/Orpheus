@@ -29,7 +29,9 @@ def test(args):
     avg_ssim = 0
     frame_mse = [0] * args.horizon
     frame_ssim = [0] * args.horizon
- 
+    args.h_channels = 64
+    args.in_channels = 1
+
     ground_truth, prediction = [], []  # these are for visualization
     model = ConvLSTM.Seq2Seq(args)
     model.load_state_dict(torch.load(model_name))
