@@ -10,7 +10,8 @@ def test(args):
 
     
     device = torch.device('cuda:{}'.format(args.gpu_id) if torch.cuda.is_available() else 'cpu')
-  
+    gpu = args.gpu_id if torch.cuda.is_available() else None
+
     if args.model_name.split('_')[-1] == 'tf':
         teacher_forcing_rate = 0
     else:
