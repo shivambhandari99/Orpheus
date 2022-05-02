@@ -34,7 +34,7 @@ def test(args):
 
     ground_truth, prediction = [], []  # these are for visualization
     model = ConvLSTM.Seq2Seq(args)
-    model.load_state_dict(torch.load(model_name))
+    model.load_state_dict(torch.load(args.model_name))
     model.to(device)
     data_loader = DataLoader(
         train_dataset, 
