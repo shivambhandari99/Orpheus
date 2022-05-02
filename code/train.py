@@ -56,13 +56,13 @@ def train(args):
         if teacher_forcing_rate:
             teacher_forcing_rate = (1 - 3*epoch/args.num_epochs)
         for i, (data,target) in enumerate(train_loader):
-
             if((i+1)%10==0):
                 #print(i,running_loss/i)
                 writer.add_scalar("Loss", running_loss/i, epoch*len(train_loader)+i)
                 writer.add_image("Input",inputs[0][-1],global_step=epoch*len(train_loader)+i)
                 writer.add_image("Output",outputs[0][0],global_step=epoch*len(train_loader)+i)
             inputs, labels = data.to(gpu), target.to(gpu)
+            print(inputs.shape)
             inputs = inputs.float()
             optimizer.zero_grad()
             outputs = model(inputs,labels,teacher_forcing_rate)
