@@ -40,7 +40,7 @@ def test(args):
     data_loader = DataLoader(
         train_dataset, 
         shuffle=True)
-
+    batch_size = 1
     model.eval()    
     with torch.no_grad():
         for it, (data,target) in enumerate(data_loader):
