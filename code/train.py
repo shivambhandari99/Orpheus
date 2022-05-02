@@ -46,7 +46,7 @@ def train(args):
     writer = SummaryWriter()
     dataiter = iter(train_loader)
     images, labels = dataiter.next()
-    writer.add_graph(model, images)
+    writer.add_graph(model, images,labels)
   # initialize tensorboard writer
     if args.use_teacher_forcing:
         teacher_forcing_rate = 1.0
