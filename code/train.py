@@ -68,7 +68,6 @@ def train(args):
                 writer.add_image("Output(t+1)",outputs[0][0],global_step=epoch*len(train_loader)+i)
                 writer.add_image("Output(t+2)",outputs[0][0],global_step=epoch*len(train_loader)+i)
             inputs, labels = data.to(gpu), target.to(gpu)
-            print(inputs.shape)
             inputs = inputs.float()
             optimizer.zero_grad()
             outputs = model(inputs,labels,teacher_forcing_rate)
