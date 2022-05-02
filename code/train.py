@@ -43,8 +43,11 @@ def train(args):
     #optimizer = torch.optim.SGD(model.parameters(), weight_decay=1e-3, lr = 0.001, momentum=0.9)
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-4, betas=(0.9, 0.98))
     criterion = nn.MSELoss()
-    writer = SummaryWriter()  # initialize tensorboard writer
-    
+    writer = SummaryWriter()
+    dataiter = iter(train_loader)
+    images, labels = dataiter.next()
+    writer.add_graph(model, images)
+  # initialize tensorboard writer
     if args.use_teacher_forcing:
         teacher_forcing_rate = 1.0
     else:
@@ -59,8 +62,11 @@ def train(args):
             if((i+1)%10==0):
                 #print(i,running_loss/i)
                 writer.add_scalar("Loss", running_loss/i, epoch*len(train_loader)+i)
-                writer.add_image("Input",inputs[0][-1],global_step=epoch*len(train_loader)+i)
-                writer.add_image("Output",outputs[0][0],global_step=epoch*len(train_loader)+i)
+            if((i+1)%50==0):
+                writer.add_image("Input(t-2)",inputs[0][-2],global_step=epoch*len(train_loader)+i)
+                writer.add_image("Input(t-1)",inputs[0][-1],global_step=epoch*len(train_loader)+i)
+                writer.add_image("Output(t+1)",outputs[0][0],global_step=epoch*len(train_loader)+i)
+                writer.add_image("Output(t+2)",outputs[0][0],global_step=epoch*len(train_loader)+i)
             inputs, labels = data.to(gpu), target.to(gpu)
             print(inputs.shape)
             inputs = inputs.float()
@@ -73,7 +79,7 @@ def train(args):
             
         print('Epoch: {} - Loss: {:.6f}'.format(epoch + 1, running_loss/len(train_loader)))
         running_loss = 0.0
-        torch.save(model.state_dict(), os.path.join(args.result_path, 'mnist_adam' + str(epoch) +'.pth'))
+        torch.save(model.state_dict(), os.path.join(args.result_path, 'sst_adam' + str(epoch) +'.pth'))
 
             # [TODO: train the model with a batch]
             
@@ -108,7 +114,7 @@ def main():
     args = parser.parse_args()
     
     train(args)
-    #python train.py --data_source moving_mnist --model_name final --seq_len 10 --horizon 10 --num_epochs 300 --data_path ../data/ > output.log
+    #python train.py --data_source sst --model_name final --seq_len 4 --horizon 6 --num_epochs 300 --data_path ../data/ > output.log
 #python train.py --data_source moving_mnist --model_name final --seq_len 10 --horizon 10 --data_path ../data/    
 if __name__ == "__main__":
     main()
