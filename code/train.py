@@ -64,7 +64,7 @@ def train(args):
             if((i+1)%10==0):
                 #print(i,running_loss/i)
                 writer.add_scalar("Loss", running_loss/i, epoch*len(train_loader)+i)
-            if((i+1)%50==0):
+            if((i+1)%500==0):
                 writer.add_image("Input(t-2)",inputs[0][-2],global_step=epoch*len(train_loader)+i)
                 writer.add_image("Input(t-1)",inputs[0][-1],global_step=epoch*len(train_loader)+i)
                 writer.add_image("Output(t+1)",outputs[0][0],global_step=epoch*len(train_loader)+i)
@@ -80,7 +80,7 @@ def train(args):
             
         print('Epoch: {} - Loss: {:.6f}'.format(epoch + 1, running_loss/len(train_loader)))
         running_loss = 0.0
-        torch.save(model.state_dict(), os.path.join(args.result_path, 'sst_adam' + str(epoch) +'.pth'))
+        torch.save(model.state_dict(), os.path.join(args.result_path, 'sst_adam_tf' + str(epoch) +'.pth'))
 
             # [TODO: train the model with a batch]
             
