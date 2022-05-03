@@ -24,6 +24,14 @@ def test(args):
                                     is_train=False, 
                                     seq_len=args.seq_len, 
                                     horizon=args.horizon)
+    
+    elif args.data_source == 'sst':
+        from sst import SST
+        train_dataset = SST(root=args.data_path,
+                            is_train=False, 
+                            seq_len=args.seq_len, 
+                            horizon=args.horizon)
+
 
     num_samples = 0
     avg_mse = 0
@@ -117,6 +125,6 @@ def main():
     test(args)
     
 #python test.py --model_name ../results/mnist_adam12.pth --data_path ../data/ --data_source moving_mnist --result_path ../results/ --seq_len 10 --horizon 10
-#python Orpheus/code/test.py --model_name mnist_adam50.pth --data_path drive/MyDrive/assignment5/data/ --data_source moving_mnist --result_path results/ --seq_len 10 --horizon 10    
+#python Orpheus/code/test.py --model_name sst_adam53.pth --data_path drive/MyDrive/assignment5/data/ --data_source moving_mnist --result_path results/ --seq_len 10 --horizon 10    
 if __name__ == "__main__":
     main()
