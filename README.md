@@ -48,3 +48,12 @@ datasets. This shows that teacher forcing converges faster. Both the
 methods show similar levels of SSIM across both the datasets. Therefore
 teacher forcing is objectively better in the experiment conditions of
 this assignment.
+
+# Moving MNIST Ground Truth vs Prediction
+The upper image in each sample is the ground truth and the lower one is the prediction using LSTM
+
+![Screenshot 2022-07-13 at 11 39 37 AM](https://user-images.githubusercontent.com/35135771/178786302-10e2fb8d-a766-45d1-a9d1-384cc2770762.png)
+![Screenshot 2022-07-13 at 11 40 14 AM](https://user-images.githubusercontent.com/35135771/178786387-32e1bd18-c2ad-4cfd-a120-5e732b778288.png)
+![Screenshot 2022-07-13 at 11 40 51 AM](https://user-images.githubusercontent.com/35135771/178786508-a1bf59cf-b72c-4848-b08c-4273b6fe011c.png)
+![Screenshot 2022-07-13 at 11 41 26 AM](https://user-images.githubusercontent.com/35135771/178786634-a9704c7f-94f0-483c-a637-0b63166b090a.png)
+
